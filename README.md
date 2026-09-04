@@ -19,21 +19,27 @@ The form works out of the box (see below) — no other setup required.
 
 ## What the form does right now
 
-There's no backend yet. On submit, the form validates all required fields,
-then simulates a short delay and redirects to `/thank-you`. To actually
-receive leads, replace the block marked `// No backend yet` in
-`components/CTAForm.tsx` with a real request — e.g.:
+The booking form is your live Flodesk embed (form id
+`6a91b97715d1aba2900c08a4`), not a custom-built form — see
+`components/FlodeskForm.tsx`. Leads are captured by Flodesk exactly as they
+would be on any other Flodesk-embedded page, and Flodesk's own automation
+for that form still fires on submit. Nothing about the embed's action URL,
+field names, hidden fields, or loader scripts was changed.
 
-```ts
-await fetch("/api/lead", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(values),
-});
-```
-
-and add an `app/api/lead/route.ts` that forwards to your CRM, Google Sheet,
-email, or WhatsApp Business API.
+One thing *was* changed, deliberately: inside the embed's own config block
+(`data-ff-config`, base64-encoded JSON), `onSuccess.mode` was flipped from
+`"redirect"` to `"message"`. The original config redirected the browser
+immediately, with no delay, straight to an external Flodesk-hosted URL
+(`https://consultation.bhumikabaral.com.np/thank-you`) the instant Flodesk's
+script saw a successful submit — which would hijack navigation away from
+this site before this page could send the visitor to `/thank-you`, and with
+no pause for Flodesk's post-submit automation to settle. With `"message"`
+mode, Flodesk instead shows its own inline success state (it sets
+`data-ff-stage="success"` on the form's root element). `FlodeskForm.tsx`
+watches for that attribute, and only once it appears — i.e. only after
+Flodesk has confirmed the submission — waits about 2.2 seconds
+(`REDIRECT_DELAY_MS`) and then routes to `/thank-you` itself. Adjust that
+delay, or the redirect target, directly in that file.
 
 ## Run locally
 
@@ -76,7 +82,8 @@ components/
 ├── Problem.tsx
 ├── Benefits.tsx
 ├── Process.tsx
-└── CTAForm.tsx           # Validated form + redirect to /thank-you
+├── CTAForm.tsx           # "Book the Call" card — wraps FlodeskForm
+└── FlodeskForm.tsx       # The live Flodesk embed + delayed redirect logic
 
 app/icon.png              # Favicon (Next.js App Router picks this up automatically)
 app/apple-icon.png         # Apple touch icon
