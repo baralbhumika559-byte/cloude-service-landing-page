@@ -21,8 +21,8 @@ const nextSteps = [
 ];
 
 const WHATSAPP_NUMBER = "9779818719201";
-// Self-hosted video: public/consultation-intro.mp4 (portrait, 478x850).
-const VIDEO_SRC = "/consultation-intro.mp4";
+// YouTube Shorts video: https://youtube.com/shorts/gBt58sbKKuc
+const YOUTUBE_VIDEO_ID = "gBt58sbKKuc";
 
 export default function ThankYouPage() {
   return (
@@ -67,20 +67,14 @@ export default function ThankYouPage() {
               Watch This Before Your Call
             </h2>
 
-            <div className="mt-6 mx-auto w-full max-w-[280px] aspect-[478/850] overflow-hidden rounded-xl border border-brand-line bg-black shadow-card">
-              <video
-                src={VIDEO_SRC}
-                controls
-                playsInline
-                preload="metadata"
-                className="h-full w-full object-cover"
-              >
-                Your browser doesn&rsquo;t support embedded video. You can{" "}
-                <a href={VIDEO_SRC} className="text-brand-primary underline">
-                  download the video
-                </a>{" "}
-                instead.
-              </video>
+            <div className="mt-6 mx-auto w-full max-w-[280px] aspect-[9/16] overflow-hidden rounded-xl border border-brand-line bg-black shadow-card">
+              <iframe
+                src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}`}
+                title="Watch this before your call"
+                className="h-full w-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
             </div>
 
             <p className="mt-6 text-left text-sm font-semibold text-brand-ink">

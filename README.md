@@ -8,11 +8,11 @@ goal: get the visitor to submit the consultation form.
 Nothing left to fill in — the logo, WhatsApp number, and "watch this before
 your call" video are all wired in:
 
-- **Video** — self-hosted at `public/consultation-intro.mp4`, played with a
-  native `<video>` element in `app/thank-you/page.tsx` (constant
-  `VIDEO_SRC`). It's a portrait video (478×850), so the player is sized for
-  that instead of a widescreen frame. Swap the file (keep the same filename,
-  or update `VIDEO_SRC`) any time you have a different cut.
+- **Video** — embedded from YouTube (Shorts) via an `<iframe>` in
+  `app/thank-you/page.tsx` (constant `YOUTUBE_VIDEO_ID`). It's framed as a
+  portrait 9:16 player to match Shorts. To swap the video, replace just the
+  video ID — e.g. for `https://youtube.com/shorts/gBt58sbKKuc` the ID is
+  `gBt58sbKKuc`.
 - **WhatsApp number** — `WHATSAPP_NUMBER` in the same file.
 
 The form works out of the box (see below) — no other setup required.
@@ -90,9 +90,12 @@ app/apple-icon.png         # Apple touch icon
 
 public/
 ├── logo.png               # Bhumika Digital logo (used in the header)
-├── og-image.svg            # Social share image (includes the logo)
-└── consultation-intro.mp4  # "Watch this before your call" video
+└── og-image.svg            # Social share image (includes the logo)
 ```
+
+Note: `public/consultation-intro.mp4` is no longer used (the Thank You page
+now embeds a YouTube video instead) and can be deleted if you want to trim
+the repo.
 
 ## Notes on what's included / left out
 
