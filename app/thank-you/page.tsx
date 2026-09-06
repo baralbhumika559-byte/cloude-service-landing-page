@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
+import PixelPageView from "@/components/PixelPageView";
 
 export const metadata: Metadata = {
   title: "You're All Set! | Bhumika Digital",
@@ -27,6 +28,7 @@ const YOUTUBE_VIDEO_ID = "gBt58sbKKuc";
 export default function ThankYouPage() {
   return (
     <main className="min-h-screen pb-20">
+      <PixelPageView />
       <Header />
 
       <section className="py-4 sm:py-8">
