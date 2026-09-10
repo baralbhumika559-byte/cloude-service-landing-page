@@ -770,7 +770,7 @@ const FLODESK_CSS = `
 
   [data-ff-el="root"].${ROOT_CLASS} .${ROOT_CLASS}__button [data-draw-element="editable"]:not([contenteditable]):empty::after {
     width: 10px;
-    content: "\00a0";
+    content: "\\00a0";
     display: block;
   }
 
